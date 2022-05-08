@@ -1,0 +1,21 @@
+class Solution {
+public:
+    void nextPermutation(vector<int>& nums) {
+        
+        int size=nums.size(), i,j;
+        
+        for(i=size-2;i>=0;i--){                 //traverse from backside to find nums[i]<nums[i+1] - ind1
+            if(nums[i]<nums[i+1]) break;
+        }
+        if(i<0) reverse(nums.begin(),nums.end());  //simply reverse if not found
+        
+        else{
+            for(j=size-1;j>i;j--){              //again traverse from backside to find nums[j]>nums[i] - ind2
+                if(nums[j]>nums[i]) break; 
+            }
+                
+                swap(nums[i],nums[j]);                //swap(ind1,ind2)
+                reverse(nums.begin()+i+1,nums.end());  //reverse(ind1+1,end)
+        }
+    }
+};

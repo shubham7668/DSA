@@ -1,0 +1,45 @@
+class Solution {                       
+public:
+    vector<vector<int>> fourSum(vector<int>& nums, int target) {     //🥵🥵🥵🥵🥵🥵🥵🥵
+        vector<vector<int>> ans;
+        int n=nums.size();
+        if(nums.empty()) return ans;
+        sort(nums.begin(),nums.end());
+        
+        for(int i=0;i<n;i++){
+            for(int j=i+1;j<n;j++){
+                
+                int target2= target-nums[i]-nums[j];
+                int start=j+1, end=n-1;
+                
+                while(start<end){
+                    int sum=nums[start]+nums[end];
+                    
+                    if(sum<target2) start++;
+                    else if(sum>target2) end--;
+                    else{
+                        vector<int> quad(4,0);
+                        quad[0]=nums[i];
+                        quad[1]=nums[j];
+                        quad[2]=nums[start];
+                        quad[3]=nums[end];
+                        
+                        ans.push_back(quad);
+                        
+                        // Processing the duplicates of number 3--> will jump pointer on next element
+                        while(start < end && nums[start] == quad[2]) ++start;
+                    
+                        // Processing the duplicates of number 4
+                        while (start < end && nums[end] == quad[3]) --end;
+
+                    }
+                }
+                //Processing for duplicates of number 2 
+                while(j+1<n && nums[j+1]==nums[j]) ++j;
+            }
+            //Processing for duplicates of number 2 
+            while(i+1<n && nums[i+1]==nums[i]) ++i;
+        }
+        return ans;
+    }
+};

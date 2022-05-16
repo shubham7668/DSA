@@ -1,0 +1,38 @@
+class Solution {
+public:
+    int longestConsecutive(vector<int>& nums) {
+       
+        //int n=nums.size();                      Brute Force
+        //sort(nums.begin(),nums.end());
+        //int count=1;
+        //
+        //if(n==0 || n==1) return n;
+        //
+        //for(int i=0;i<n;i++){
+        //    if(nums[i+1]-nums[i]==1) count+=1;
+        //}
+        //return count;
+        
+        set<int> hashset;
+        for(int num: nums) hashset.insert(num);
+        
+        int longestCount=0;
+        
+        for(int num: nums){
+            
+            if(!hashset.count(num-1)){
+                int currentNum=num;
+                int currentCount=1;
+                
+                while(hashset.count(currentNum+1)){
+                    currentNum ++;
+                    currentCount++;
+                }
+                longestCount=max(longestCount,currentCount);
+            }
+            
+        }
+        return longestCount;
+        
+    }
+};

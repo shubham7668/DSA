@@ -1,0 +1,43 @@
+class Solution {
+public:
+    bool hasCycle(ListNode *head) {                      //Brute force
+                                                         //TC-> O(n)
+                                                         //SC-> O(n)
+        
+//         ListNode* curr=head;
+//         unordered_map<ListNode*,bool> visited;
+        
+//         while(curr != NULL){
+            
+//             //Cycle present
+//             if(visited[curr]==true){
+//                 return true;
+//             }
+//             visited[curr] = true;
+//             curr = curr->next;
+//         }
+//         return false;
+        
+                                                        //FLOYD'S CYCLE DETECTION ALGO
+                                                        //TC-> O(n)
+                                                        //SC-> O(1)
+        
+        if(head==NULL) return false;
+        
+        ListNode* slow=head;
+        ListNode* fast=head;
+        
+        while(fast != NULL && fast ->next != NULL){
+            
+            fast=fast->next->next;   //2 step aage bhadega
+           
+            slow=slow->next;
+            
+            if(slow==fast){
+                return true;
+            }
+            
+        }
+        return false;    
+    }
+};

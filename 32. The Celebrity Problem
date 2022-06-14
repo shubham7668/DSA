@@ -1,0 +1,48 @@
+vector<vector<int> >& Mclass Solution 
+{
+    private:
+    bool knows(vector<vector<int> >& M,int a, int b)
+    {
+        if(M[a][b]==1) return true;
+        else
+        return false;
+
+    }
+    public:
+    //Function to find if there is a celebrity in the party or not.
+    int celebrity(vector<vector<int> >& M, int n) 
+    {
+        stack<int> s;  
+        //Step1->Put all candiadate inside stack
+        for(int i=0;i<n;i++) s.push(i);
+        
+        //Step2->while s.size>1 compare A & B
+        while(s.size()>1){
+            int A=s.top();
+            s.pop();
+            
+            int B=s.top();
+            s.pop();
+            
+            if(knows(M,A,B)) s.push(B);
+            else if(knows(M,B,A)) s.push(A);
+            
+        }
+        //Step3->Verify if it is a real celebrity or not!!
+        int ans=s.top();
+        
+        int zeroCnt=0;
+        for(int i=0;i<n;i++){
+            if(M[ans][i]==0) zeroCnt++;
+        }
+        if(zeroCnt != n) return -1; //Celebriity knows no-one
+        
+        int oneCnt=0;
+        for(int i=0;i<n;i++){
+            if(M[i][ans]==1) oneCnt++;
+        }
+        if(oneCnt!=n-1) return -1; //Everyone knows celebrity
+        
+        return ans;       
+    }
+};
